@@ -362,9 +362,9 @@ public class ScaffoldPlus extends BlackOutModule {
 
             if (jumpProgress > -1) {
                 if (jumpProgress < 3) {
-                    ((IVec3d) motion).setXZ(0, 0);
-                    ((IVec3d) motion).setY(velocities[jumpProgress]);
-                    ((IVec3d) mc.player.getVelocity()).setY(velocities[jumpProgress]);
+                    ((IVec3d) motion).meteor$setXZ(0, 0);
+                    ((IVec3d) motion).meteor$setY(velocities[jumpProgress]);
+                    ((IVec3d) mc.player.getVelocity()).meteor$setY(velocities[jumpProgress]);
                     jumpProgress++;
                 }
             }

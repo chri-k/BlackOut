@@ -48,6 +48,10 @@ import java.util.logging.Logger;
  * @author OLEPOSSU
  */
 
+// H1ggsK here
+// I had to invalidate a bunch of packet types, some have been changed to the point that I cannot fix the definitions. Luckily, these only were unneeded ones.
+// SOMEONE WILL NEED TO FIX THIS EVENTUALLY
+
 public class PacketNames {
     public static final Map<Class<?>, PacketData<?>> s2c = new HashMap<>();
     public static final Map<Class<?>, PacketData<?>> c2s = new HashMap<>();
@@ -99,14 +103,13 @@ public class PacketNames {
         c2s(ClientStatusC2SPacket.class, "ClientStatus", packet -> "mode: " + packet.getMode().name());
         c2s(CloseHandledScreenC2SPacket.class, "CloseHandledScreen", packet -> "syncId: " + packet.getSyncId());
         c2s(CommandExecutionC2SPacket.class, "CommandExecution", packet -> "command: " + packet.command());
-        c2s(CraftRequestC2SPacket.class, "CraftRequest", packet -> "syncId: " + packet.getSyncId() + " shouldCraftAll: " + packet.shouldCraftAll() + " recipe: " + packet.getRecipeId().toString());
+        c2s(CraftRequestC2SPacket.class, "CraftRequest", packet -> "syncId: " + packet.syncId() + " shouldCraftAll: " + packet.craftAll() + " recipe: " + packet.recipeId().toString());
         c2s(CreativeInventoryActionC2SPacket.class, "CreativeInventoryAction", packet -> "slot: " + packet.slot() + " name: " + packet.stack().getName().getString() + " count: " + packet.stack().getCount());
         c2s(HandSwingC2SPacket.class, "HandSwing", packet -> "hand: " + packet.getHand().name());
         c2s(JigsawGeneratingC2SPacket.class, "JigsawGenerating", packet -> "pos: " + packet.getPos().toShortString() + " maxDepth: " + packet.getMaxDepth() + " shouldKeepJigsaws: " + packet.shouldKeepJigsaws());
         c2s(MessageAcknowledgmentC2SPacket.class, "MessageAcknowledgment", packet -> "offset: " + packet.offset());
-        c2s(PickFromInventoryC2SPacket.class, "PickFromInventory", packet -> "slot: " + packet.getSlot());
         c2s(PlayerActionC2SPacket.class, "PlayerAction", packet -> "action: " + packet.getAction().name() + "pos: " + packet.getPos().toShortString() + " direction: " + packet.getDirection().getName() + " sequence: " + packet.getSequence());
-        c2s(PlayerInputC2SPacket.class, "PlayerInput", packet -> "forward: " + packet.getForward() + " sideways: " + packet.getSideways() + " isJumping: " + packet.isJumping() + " isSneaking: " + packet.isSneaking());
+        // FML // c2s(PlayerInputC2SPacket.class, "PlayerInput", packet -> "forward: " + packet.getForward() + " sideways: " + packet.getSideways() + " isJumping: " + packet.isJumping() + " isSneaking: " + packet.isSneaking());
         c2s(PlayerInteractBlockC2SPacket.class, "PlayerInteractBlock", packet -> "hand: " + packet.getHand().name() + " blockPos: " + packet.getBlockHitResult().getBlockPos().toShortString() + " pos: " + packet.getBlockHitResult().getPos().toString() + " side: " + packet.getBlockHitResult().getSide() + " isInsideBlock: " + packet.getBlockHitResult().isInsideBlock() + " type: " + packet.getBlockHitResult().getType().name() + " sequence: " + packet.getSequence());
         c2s(PlayerInteractEntityC2SPacket.class, "PlayerInteractEntity", packet -> "id: " + ((IInteractEntityC2SPacket) packet).getId() + " type: " + ((IInteractEntityC2SPacket) packet).getType().getType().name() + " isPlayerSneaking: " + packet.isPlayerSneaking());
         c2s(PlayerInteractItemC2SPacket.class, "PlayerInteractItem", packet -> "hand: " + packet.getHand().name() + " sequence: " + packet.getSequence());
@@ -119,7 +122,7 @@ public class PacketNames {
         c2s(PlayerSessionC2SPacket.class, "PlayerSession", packet -> "sessionId: " + packet.chatSession().sessionId() + " isExpired: " + packet.chatSession().publicKeyData().isExpired() + " expiresAt: " + packet.chatSession().publicKeyData().expiresAt().toString() + " keySignature: " + byteArrToString(packet.chatSession().publicKeyData().keySignature()));
         c2s(QueryBlockNbtC2SPacket.class, "QueryBlockNbt", packet -> "pos: " + packet.getPos() + " transactionId: " + packet.getTransactionId());
         c2s(QueryEntityNbtC2SPacket.class, "QueryEntityNbt", packet -> "entityId: " + packet.getEntityId() + " transactionId: " + packet.getTransactionId());
-        c2s(RecipeBookDataC2SPacket.class, "RecipeBookData", packet -> "recipeId: " + packet.getRecipeId().toString());
+        c2s(RecipeBookDataC2SPacket.class, "RecipeBookData", packet -> "recipeId: " + packet.recipeId().toString());
         c2s(RecipeCategoryOptionsC2SPacket.class, "RecipeCategoryOptions", packet -> "category: " + packet.getCategory().name() + " isFilteringCraftable: " + packet.isFilteringCraftable() + " isGuiOpen: " + packet.isGuiOpen());
         c2s(RenameItemC2SPacket.class, "RenameItem", packet -> "name: " + packet.getName());
         c2s(RequestCommandCompletionsC2SPacket.class, "RequestCommandCompletions", packet -> "partialCommand: " + packet.getPartialCommand() + " completionId: " + packet.getCompletionId());
@@ -157,7 +160,7 @@ public class PacketNames {
             return builder.toString();
         });
         c2s(UpdateStructureBlockC2SPacket.class, "UpdateStructureBlock", packet -> "pos: " + packet.getPos().toShortString() + " rotation: " + packet.getRotation().asString() + " offset: " + packet.getOffset().toShortString() + " size: " + packet.getSize().toShortString() + " seed: " + packet.getSeed() + " templateName: " + packet.getTemplateName() + " mode: " + packet.getMode().asString() + " action: " + packet.getAction().name() + " metaData: " + packet.getMetadata() + " integrity: " + packet.getIntegrity() + " mirror: " + packet.getMirror());
-        c2s(VehicleMoveC2SPacket.class, "VehicleMove", packet -> "x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ() + " yaw: " + packet.getYaw() + " pitch: " + packet.getPitch());
+        c2s(VehicleMoveC2SPacket.class, "VehicleMove", packet -> "x: " + packet.position().x + " y: " + packet.position().y + " z: " + packet.position().z + " yaw: " + packet.yaw() + " pitch: " + packet.pitch());
 
         // query
         c2s(QueryPingC2SPacket.class, "QueryPing", packet -> "startTime: " + packet.getStartTime());
@@ -194,7 +197,7 @@ public class PacketNames {
         s2c(LoginHelloS2CPacket.class, "LoginHello", packet -> "serverId: " + packet.getServerId() + " nonce: " + byteArrToString(packet.getNonce()));
         s2c(LoginQueryRequestS2CPacket.class, "LoginQueryRequest", packet -> "queryId: " + packet.queryId() + " payloadId: " + packet.payload().id());
         s2c(LoginSuccessS2CPacket.class, "LoginSuccess", packet -> {
-            StringBuilder builder = new StringBuilder("name: " + packet.profile().getName() + " id: " + packet.profile().getId().toString() + " newNetworkState: " + packet.getPacketId().id().toString() + " properties: {");
+            StringBuilder builder = new StringBuilder("name: " + packet.profile().getName() + " id: " + packet.profile().getId().toString() + " newNetworkState: " + packet.profile().getId().toString() + " properties: {");
             packet.profile().getProperties().asMap().forEach((str, collection) -> {
                 builder.append("\n").append(str);
                 for (Property v : collection) {
@@ -298,8 +301,8 @@ public class PacketNames {
             return builder.toString();
         });
         s2c(CommandTreeS2CPacket.class, "CommandTree"); //TODO: should add something here
-        s2c(CooldownUpdateS2CPacket.class, "CooldownUpdate", packet -> "item: " + packet.item().getName() + " cooldown: " + packet.cooldown());
-        s2c(CraftFailedResponseS2CPacket.class, "CraftFailedResponse", packet -> "syncId: " + packet.getSyncId() + " recipeId: " + packet.getRecipeId());
+        // FML // s2c(CooldownUpdateS2CPacket.class, "CooldownUpdate", packet -> "item: " + packet.item().getName() + " cooldown: " + packet.cooldown());
+        s2c(CraftFailedResponseS2CPacket.class, "CraftFailedResponse", packet -> "syncId: " + packet.syncId());
         s2c(DamageTiltS2CPacket.class, "DamageTiltS2CPacket", packet -> "id: " + packet.id() + " yaw: " + packet.yaw());
         s2c(DeathMessageS2CPacket.class, "DeathMessage", packet -> "playerId: " + packet.playerId() + " message: " + packet.message().getString());
         s2c(DifficultyS2CPacket.class, "Difficulty", packet -> "difficulty: " + packet.getDifficulty().getName() + " isDifficultyLocked: " + packet.isDifficultyLocked());
@@ -349,7 +352,7 @@ public class PacketNames {
             builder.append("\n}");
             return builder.toString();
         });
-        s2c(EntityPositionS2CPacket.class, "EntityPosition", packet -> "entityId: " + packet.getEntityId() + " x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ() + " yaw: " + packet.getYaw() + " pitch: " + packet.getPitch() + " isOnGround: " + packet.isOnGround());
+        s2c(EntityPositionS2CPacket.class, "EntityPosition", packet -> "entityId: " + packet.entityId() + " x: " + packet.change().position().x + " y: " + packet.change().position().y + " z: " + packet.change().position().z + " yaw: " + packet.change().yaw() + " pitch: " + packet.change().pitch() + " isOnGround: " + packet.onGround());
         s2c(EntityS2CPacket.class, "Entity", packet -> "deltaX: " + packet.getDeltaX() + " deltaY: " + packet.getDeltaY() + " deltaZ: " + packet.getDeltaZ() + " yaw: " + packet.getYaw() + " pitch: " + packet.getPitch() + " hasRotation: " + packet.hasRotation() + " isPositionChanged: " + packet.isPositionChanged() + " isOnGround: " + packet.isOnGround());
         s2c(EntitySetHeadYawS2CPacket.class, "EntitySetHeadYaw", packet -> "headYaw: " + packet.getHeadYaw());
         s2c(EntitySpawnS2CPacket.class, "EntitySpawn", packet -> "entityId: " + packet.getEntityId() + " entityData: " + packet.getEntityData() + " entityType: " + packet.getEntityType().getName() + " uuid: " + packet.getUuid().toString() + " x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ() + " yaw: " + packet.getYaw() + " pitch: " + packet.getPitch() + " headYaw: " + packet.getHeadYaw() + " velocityX: " + packet.getVelocityX() + " velocityY: " + packet.getVelocityY() + " velocityZ: " + packet.getVelocityZ());
@@ -367,14 +370,17 @@ public class PacketNames {
         s2c(EntityVelocityUpdateS2CPacket.class, "EntityVelocityUpdate", packet -> "entityId: " + packet.getEntityId() + " velocityX: " + packet.getVelocityX() + " velocityY: " + packet.getVelocityY() + " velocityZ: " + packet.getVelocityZ());
         s2c(ExperienceBarUpdateS2CPacket.class, "ExperienceBarUpdate", packet -> "experience: " + packet.getExperience() + " barProgress: " + packet.getBarProgress() + " experienceLevel: " + packet.getExperienceLevel());
         s2c(ExperienceOrbSpawnS2CPacket.class, "ExperienceOrbSpawn", packet -> "entityId: " + packet.getEntityId() + " experience: " + packet.getExperience() + " x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ());
-        s2c(ExplosionS2CPacket.class, "Explosion", packet -> {
-            StringBuilder builder = new StringBuilder("x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ() + " playerVelocityX: " + packet.getPlayerVelocityX() + " playerVelocityY: " + packet.getPlayerVelocityY() + " playerVelocityZ: " + packet.getPlayerVelocityZ() + " destructionType: " + packet.getDestructionType().name() + " radius: " + packet.getRadius() + " particle: " + packet.getParticle().getType().toString() + " emitterParticle: " + packet.getEmitterParticle().getType().toString() + " soundEvent: ");
-            builder.append(packet.getSoundEvent().getIdAsString());
+
+        // FML //
+        /*s2c(ExplosionS2CPacket.class, "Explosion", packet -> {
+            StringBuilder builder = new StringBuilder("x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ() + " playerVelocityX: " + packet.velo() + " playerVelocityY: " + packet.getPlayerVelocityY() + " playerVelocityZ: " + packet.getPlayerVelocityZ() + " destructionType: " + packet.getDestructionType().name() + " radius: " + packet.getRadius() + " particle: " + packet.getParticle().getType().toString() + " emitterParticle: " + packet.getEmitterParticle().getType().toString() + " soundEvent: ");
+            builder.append(packet.explosionSound().getIdAsString());
             builder.append(" affectedBlocks: {");
             packet.getAffectedBlocks().forEach(pos -> builder.append("\n  ").append(pos.toShortString()));
             builder.append("\n}");
             return builder.toString();
-        });
+        });*/
+
         s2c(GameJoinS2CPacket.class, "GameJoin", packet -> {
             StringBuilder builder = new StringBuilder("playerEntityId: " + packet.playerEntityId() + " maxPlayers: " + packet.maxPlayers() + " viewDistance: " + packet.viewDistance() + " simulationDistance: " + packet.simulationDistance() + " doLimitedCrafting: " + packet.doLimitedCrafting() + " enforcesSecureChat: " + packet.enforcesSecureChat() + " hardcore: " + packet.hardcore() + " showDeathScreen: " + packet.showDeathScreen() + " reducedDebugInfo: " + packet.reducedDebugInfo() + " commonPlayerSpawnInfoGameMode: " + packet.commonPlayerSpawnInfo().gameMode() + " commonPlayerSpawnInfoIsFlat: " + packet.commonPlayerSpawnInfo().isFlat() + " commonPlayerSpawnInfoPrevGameMode: " + packet.commonPlayerSpawnInfo().prevGameMode() + " commonPlayerSpawnInfoSeed: " + packet.commonPlayerSpawnInfo().seed() + " commonPlayerSpawnInfoPortalCooldown: " + packet.commonPlayerSpawnInfo().portalCooldown());
             builder.append(" commonPlayerSpawnInfoDimension: ").append(packet.commonPlayerSpawnInfo().dimension().getValue().toString());
@@ -445,7 +451,7 @@ public class PacketNames {
         s2c(OpenScreenS2CPacket.class, "OpenScreen", packet -> "name: " + packet.getName().getString() + " syncId: " + packet.getSyncId() + " screenHandlerType: " + packet.getScreenHandlerType());
         s2c(OpenWrittenBookS2CPacket.class, "OpenWrittenBook", packet -> "hand: " + packet.getHand().name());
         s2c(OverlayMessageS2CPacket.class, "OverlayMessage", packet -> "text: " + packet.text().getString());
-        s2c(ParticleS2CPacket.class, "Particle", packet -> "count: " + packet.getCount() + " x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ() + " offsetX: " + packet.getOffsetX() + " offsetY: " + packet.getOffsetY() + " offsetZ: " + packet.getOffsetZ() + " speed: " + packet.getSpeed() + " isLongDistance: " + packet.isLongDistance() + " parameterType: " + packet.getParameters().getType());
+        // FML // s2c(ParticleS2CPacket.class, "Particle", packet -> "count: " + packet.getCount() + " x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ() + " offsetX: " + packet.getOffsetX() + " offsetY: " + packet.getOffsetY() + " offsetZ: " + packet.getOffsetZ() + " speed: " + packet.getSpeed() + " isLongDistance: " + packet.isLongDistance() + " parameterType: " + packet.getParameters().getType());
         s2c(PlayerAbilitiesS2CPacket.class, "PlayerAbilities", packet -> "isCreativeMod: " + packet.isCreativeMode() + " allowFlying: " + packet.allowFlying() + " isInvulnerable: " + packet.isInvulnerable() + " isFlying: " + packet.isFlying() + " flySpeed: " + packet.getFlySpeed() + " walkSpeed: " + packet.getWalkSpeed());
         s2c(PlayerActionResponseS2CPacket.class, "PlayerActionResponse", packet -> "sequence: " + packet.sequence());
         s2c(PlayerListHeaderS2CPacket.class, "PlayerListHeader", packet -> "header: " + packet.header().getString() + " footer: " + packet.footer().getString());
@@ -461,9 +467,7 @@ public class PacketNames {
             return builder.toString();
         });
         s2c(PlayerPositionLookS2CPacket.class, "PlayerPositionLook", packet -> {
-            StringBuilder builder = new StringBuilder("teleportId: " + packet.getTeleportId() + " x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ() + " yaw: " + packet.getYaw() + " pitch: " + packet.getPitch() + " flags: {");
-            packet.getFlags().forEach(flag -> builder.append("\n  ").append(flag.name()));
-            builder.append("\n}");
+            StringBuilder builder = new StringBuilder("teleportId: " + packet.teleportId() + " x: " + packet.change().position().x+ " y: " + packet.change().position().y + " z: " + packet.change().position().z + " yaw: " + packet.change().yaw() + " pitch: " + packet.change().pitch());
             return builder.toString();
         });
         s2c(PlayerRemoveS2CPacket.class, "PlayerRemove", packet -> {
@@ -513,12 +517,15 @@ public class PacketNames {
         });
         s2c(StopSoundS2CPacket.class, "StopSound", packet -> "category: " + packet.getCategory() + " soundId: " + packet.getSoundId().toString());
         s2c(SubtitleS2CPacket.class, "Subtitle", packet -> "text: " + packet.text().getString());
-        s2c(SynchronizeRecipesS2CPacket.class, "SynchronizeRecipes", packet -> {
+
+        // FML //
+        /*s2c(SynchronizeRecipesS2CPacket.class, "SynchronizeRecipes", packet -> {
             StringBuilder builder = new StringBuilder("recipes: {");
             packet.getRecipes().forEach(recipe -> builder.append("\n  id: ").append(recipe.id().toString()).append(" value: ").append(recipe.value().toString()));
             builder.append("\n}");
             return builder.toString();
-        });
+        });*/
+
         s2c(TeamS2CPacket.class, "Team", packet -> {
             StringBuilder builder = new StringBuilder("teamName: " + packet.getTeamName() + " teamOperation: " + (packet.getTeamOperation() == null ? "null" : packet.getTeamOperation().name()) + " playerListOperation: " + (packet.getPlayerListOperation() == null ? "null" : packet.getPlayerListOperation().name()));
 
@@ -564,9 +571,9 @@ public class PacketNames {
         s2c(TitleFadeS2CPacket.class, "TitleFade", packet -> "fadeInTicks: " + packet.getFadeInTicks() + " stayTicks: " + packet.getStayTicks() + " fadeOutTicks: " + packet.getFadeOutTicks());
         s2c(TitleS2CPacket.class, "Title", packet -> "text: " + packet.text().getString());
         s2c(UnloadChunkS2CPacket.class, "UnloadChunk", packet -> "chunkX: " + packet.pos().x + " chunkZ: " + packet.pos().z);
-        s2c(UpdateSelectedSlotS2CPacket.class, "UpdateSelectedSlot", packet -> "slot: " + packet.getSlot());
+        s2c(UpdateSelectedSlotS2CPacket.class, "UpdateSelectedSlot", packet -> "slot: " + packet.slot());
         s2c(UpdateTickRateS2CPacket.class, "UpdateTickRate", packet -> "isFrozen: " + packet.isFrozen() + " tickRate: " + packet.tickRate());
-        s2c(VehicleMoveS2CPacket.class, "VehicleMove", packet -> "x: " + packet.getX() + " y: " + packet.getY() + " z: " + packet.getZ() + " yaw: " + packet.getYaw() + " pitch: " + packet.getPitch());
+        s2c(VehicleMoveS2CPacket.class, "VehicleMove", packet -> "x: " + packet.position().x + " y: " + packet.position().y + " z: " + packet.position().z + " yaw: " + packet.yaw() + " pitch: " + packet.pitch());
         s2c(WorldBorderCenterChangedS2CPacket.class, "WorldBorderCenterChanged", packet -> "centerX: " + packet.getCenterX() + " centerZ: " + packet.getCenterZ());
         s2c(WorldBorderInitializeS2CPacket.class, "WorldBorderInitialize", packet -> "centerX: " + packet.getCenterX() + " centerZ: " + packet.getCenterZ() + " maxRadius: " + packet.getMaxRadius() + " size: " + packet.getSize() + " sizeLerpTarget: " + packet.getSizeLerpTarget() + " sizeLerpTime: " + packet.getSizeLerpTime() + " warningBlocks: " + packet.getWarningBlocks() + " warningTime: " + packet.getWarningTime());
         s2c(WorldBorderInterpolateSizeS2CPacket.class, "WorldBorderInterpolateSize", packet -> "size: " + packet.getSize() + " sizeLerpTarget: " + packet.getSizeLerpTarget() + " sizeLerpTime: " + packet.getSizeLerpTime());
@@ -574,7 +581,7 @@ public class PacketNames {
         s2c(WorldBorderWarningBlocksChangedS2CPacket.class, "WorldBorderWarningBlocksChanged", packet -> "warningBlocks: " + packet.getWarningBlocks());
         s2c(WorldBorderWarningTimeChangedS2CPacket.class, "WorldBorderWarningTimeChanged", packet -> "warningTime: " + packet.getWarningTime());
         s2c(WorldEventS2CPacket.class, "WorldEvent", packet -> "pos: " + packet.getPos().toShortString() + " data: " + packet.getData() + " eventId: " + packet.getEventId() + " isGlobal: " + packet.isGlobal());
-        s2c(WorldTimeUpdateS2CPacket.class, "WorldTimeUpdate", packet -> "time: " + packet.getTime() + " timeOfDay: " + packet.getTimeOfDay());
+        s2c(WorldTimeUpdateS2CPacket.class, "WorldTimeUpdate", packet -> "time: " + packet.time() + " timeOfDay: " + packet.timeOfDay());
 
         // query
         s2c(PingResultS2CPacket.class, "PingResult", packet -> "startTime: " + packet.startTime());

@@ -9,7 +9,6 @@ import kassuk.addon.blackout.utils.OLEPOSSUtils;
 import kassuk.addon.blackout.utils.SettingUtils;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
-import meteordevelopment.meteorclient.mixininterface.IExplosion;
 import meteordevelopment.meteorclient.mixininterface.IRaycastContext;
 import meteordevelopment.meteorclient.mixininterface.IVec3d;
 import meteordevelopment.meteorclient.utils.PreInit;
@@ -137,7 +136,7 @@ public class BODamageUtils {
 
     public static double applyArmor(LivingEntity entity, double damage) {
         double armor = entity.getArmor();
-        double f = 2 + entity.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS) / 4;
+        double f = 2 + entity.getAttributeValue(EntityAttributes.ARMOR_TOUGHNESS) / 4;
 
         return damage * (1 - MathHelper.clamp(armor - damage / f, armor * 0.2, 20) / 25);
     }
@@ -166,7 +165,7 @@ public class BODamageUtils {
     }
 
     public static double getExposure(Vec3d source, Box box, BlockPos ignorePos, BlockPos obbyPos, boolean ignoreTerrain) {
-        ((IRaycastContext) raycastContext).set(source, null, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, mc.player);
+        ((IRaycastContext) raycastContext).meteor$set(source, null, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, mc.player);
 
         double lx = box.getLengthX();
         double ly = box.getLengthY();
@@ -193,7 +192,7 @@ public class BODamageUtils {
                 for (double z = box.minZ + offsetZ, maxZ = box.maxZ + offsetZ; z <= maxZ; z += stepZ) {
                     Vec3d vec3d = new Vec3d(x, y, z);
 
-                    ((IRaycastContext) raycastContext).set(source, vec3d, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, mc.player);
+                    ((IRaycastContext) raycastContext).meteor$set(source, vec3d, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, mc.player);
                     if (raycast(BODamageUtils.raycastContext, ignorePos, obbyPos, ignoreTerrain).getType() == HitResult.Type.MISS) ++i;
 
                     ++j;

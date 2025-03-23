@@ -59,7 +59,7 @@ public class JesusPlus extends BlackOutModule {
             else inWater = false;
 
             if ((mc.player.isTouchingWater() && !mc.player.isSubmergedInWater()) || (mc.player.isInLava() && !mc.player.isSubmergedIn(FluidTags.LAVA))) {
-                ((IVec3d) mc.player.getVelocity()).setY(bob.get());
+                ((IVec3d) mc.player.getVelocity()).meteor$setY(bob.get());
 
                 if (toggle.get() && !(mc.player.isInLava() && !mc.player.isSubmergedIn(FluidTags.LAVA)) && !isSlowed) {
                     double motion = water_speed.get();
@@ -76,9 +76,9 @@ public class JesusPlus extends BlackOutModule {
                     double x = Math.cos(Math.toRadians(yaw + 90.0f));
                     double z = Math.sin(Math.toRadians(yaw + 90.0f));
                     if (move) {
-                        ((IVec3d) event.movement).setXZ(motion * x, motion * z);
+                        ((IVec3d) event.movement).meteor$setXZ(motion * x, motion * z);
                     } else {
-                        ((IVec3d) event.movement).setXZ(0, 0);
+                        ((IVec3d) event.movement).meteor$setXZ(0, 0);
                     }
                 }
             }

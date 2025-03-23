@@ -21,13 +21,13 @@ public class RenderUtils {
 
         Matrix4f matrix4f = stack.peek().getPositionMatrix();
 
-        float a = (float) ColorHelper.Argb.getAlpha(color) / 255.0F;
-        float r = (float) ColorHelper.Argb.getRed(color) / 255.0F;
-        float g = (float) ColorHelper.Argb.getGreen(color) / 255.0F;
-        float b = (float) ColorHelper.Argb.getBlue(color) / 255.0F;
+        float a = (float) ColorHelper.getAlpha(color) / 255.0F;
+        float r = (float) ColorHelper.getRed(color) / 255.0F;
+        float g = (float) ColorHelper.getGreen(color) / 255.0F;
+        float b = (float) ColorHelper.getBlue(color) / 255.0F;
 
         RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        // IDK AM I FUCKED // RenderSystem.setShader(GameRenderer::getPositionColorProgram);
 
         BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
 
@@ -54,13 +54,13 @@ public class RenderUtils {
     public static void quad(MatrixStack stack, float x, float y, float w, float h, int color) {
         Matrix4f matrix4f = stack.peek().getPositionMatrix();
 
-        float a = (float) ColorHelper.Argb.getAlpha(color) / 255.0F;
-        float r = (float) ColorHelper.Argb.getRed(color) / 255.0F;
-        float g = (float) ColorHelper.Argb.getGreen(color) / 255.0F;
-        float b = (float) ColorHelper.Argb.getBlue(color) / 255.0F;
+        float a = (float) ColorHelper.getAlpha(color) / 255.0F;
+        float r = (float) ColorHelper.getRed(color) / 255.0F;
+        float g = (float) ColorHelper.getGreen(color) / 255.0F;
+        float b = (float) ColorHelper.getBlue(color) / 255.0F;
 
         RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        // IDK AM I FUCKED // RenderSystem.setShader(GameRenderer::getPositionColorProgram);
 
         BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
 

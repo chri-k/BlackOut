@@ -55,10 +55,10 @@ public class Fog extends BlackOutModule {
         .build()
     );
 
-    public void modifyFog() {
+    /*public void modifyFog() {
         RenderSystem.setShaderFogColor(color.get().r, color.get().g, color.get().b, color.get().a / (float) ((100 - thickness.get()) * 2.55f));
         RenderSystem.setShaderFogStart((float) (distance.get() * 1f));
         RenderSystem.setShaderFogEnd((float) (distance.get() + fading.get()));
         RenderSystem.setShaderFogShape(shape.get());
-    }
+    }*/
 }

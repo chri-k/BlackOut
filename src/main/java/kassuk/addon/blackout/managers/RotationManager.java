@@ -76,7 +76,7 @@ public class RotationManager {
                 updateNextRotation();
 
                 if (rotated) {
-                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(next[0], next[1], Managers.ON_GROUND.isOnGround()));
+                    mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(next[0], next[1], Managers.ON_GROUND.isOnGround(), false));
                 }
             }
         }
@@ -113,10 +113,10 @@ public class RotationManager {
         updateNextRotation();
 
         if (rotated) {
-            return new PlayerMoveC2SPacket.Full(packet.getX(0), packet.getY(0), packet.getZ(0), next[0], next[1], packet.isOnGround());
+            return new PlayerMoveC2SPacket.Full(packet.getX(0), packet.getY(0), packet.getZ(0), next[0], next[1], packet.isOnGround(), false);
         }
 
-        return new PlayerMoveC2SPacket.PositionAndOnGround(packet.getX(0), packet.getY(0), packet.getZ(0), packet.isOnGround());
+        return new PlayerMoveC2SPacket.PositionAndOnGround(packet.getX(0), packet.getY(0), packet.getZ(0), packet.isOnGround(), false);
     }
 
     public PlayerMoveC2SPacket onPositionOnGround(PlayerMoveC2SPacket.PositionAndOnGround packet) {
@@ -130,7 +130,7 @@ public class RotationManager {
         updateNextRotation();
 
         if (rotated) {
-            return new PlayerMoveC2SPacket.Full(packet.getX(0), packet.getY(0), packet.getZ(0), next[0], next[1], packet.isOnGround());
+            return new PlayerMoveC2SPacket.Full(packet.getX(0), packet.getY(0), packet.getZ(0), next[0], next[1], packet.isOnGround(), false);
         }
 
         return packet;
@@ -147,10 +147,10 @@ public class RotationManager {
         updateNextRotation();
 
         if (rotated) {
-            return new PlayerMoveC2SPacket.LookAndOnGround(next[0], next[1], packet.isOnGround());
+            return new PlayerMoveC2SPacket.LookAndOnGround(next[0], next[1], packet.isOnGround(), false);
         }
         if (packet.isOnGround() != Managers.ON_GROUND.isOnGround()) {
-            return new PlayerMoveC2SPacket.OnGroundOnly(packet.isOnGround());
+            return new PlayerMoveC2SPacket.OnGroundOnly(packet.isOnGround(), false);
         }
 
         return null;
@@ -167,7 +167,7 @@ public class RotationManager {
         updateNextRotation();
 
         if (rotated) {
-            return new PlayerMoveC2SPacket.LookAndOnGround(next[0], next[1], packet.isOnGround());
+            return new PlayerMoveC2SPacket.LookAndOnGround(next[0], next[1], packet.isOnGround(), false);
         }
 
         return packet;

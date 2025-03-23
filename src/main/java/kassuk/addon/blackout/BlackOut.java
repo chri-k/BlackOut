@@ -27,7 +27,7 @@ public class BlackOut extends MeteorAddon {
     public static final Category SETTINGS = new Category("Settings", Items.OBSIDIAN.getDefaultStack());
     public static final HudGroup HUD_BLACKOUT = new HudGroup("BlackOut");
     public static final String BLACKOUT_NAME = "BlackOut";
-    public static final String BLACKOUT_VERSION = "1.0.1";
+    public static final String BLACKOUT_VERSION = "1.1.0";
     public static final String COLOR = "Color is the visual perception of different wavelengths of light as hue, saturation, and brightness";
 
     @Override
@@ -58,7 +58,7 @@ public class BlackOut extends MeteorAddon {
         modules.add(new AutoPearl());
         initializeAutoPVP(modules);
         modules.add(new AutoTrapPlus());
-        modules.add(new BedAuraPlus());
+        //modules.add(new BedAuraPlus());
         modules.add(new Blocker());
         modules.add(new BurrowPlus());
         modules.add(new CustomFOV());
@@ -66,7 +66,7 @@ public class BlackOut extends MeteorAddon {
         modules.add(new FastXP());
         modules.add(new FeetESP());
         modules.add(new FlightPlus());
-        modules.add(new Fog());
+        // SORRY GUYS I'LL TRY T FIX IT // modules.add(new Fog());
         modules.add(new ForceSneak());
         modules.add(new HoleFillPlus());
         modules.add(new HoleFillRewrite());

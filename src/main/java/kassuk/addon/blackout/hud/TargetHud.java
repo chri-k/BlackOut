@@ -16,6 +16,7 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.gui.PlayerSkinDrawer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.util.SkinTextures;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -96,6 +97,7 @@ public class TargetHud extends HudElement {
     private AbstractClientPlayerEntity target;
     private String renderName = null;
     private Identifier renderSkin = null;
+    private SkinTextures renderSkinTextures = null;
     private float renderHealth;
     private float renderPing;
 
@@ -349,7 +351,7 @@ public class TargetHud extends HudElement {
         drawStack.scale(scale, scale, 1);
         drawStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(tilt));
 
-        PlayerSkinDrawer.draw(renderer.drawContext, renderSkin,20, 18, 32, false, false);
+        PlayerSkinDrawer.draw(renderer.drawContext, renderSkinTextures,20, 18,32, 0);
 
         drawStack.pop();
     }

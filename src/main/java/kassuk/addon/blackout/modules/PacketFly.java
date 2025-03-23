@@ -271,7 +271,7 @@ public class PacketFly extends BlackOutModule {
             }
         }
 
-        ((IVec3d) e.movement).set(offset.x, offset.y, offset.z);
+        ((IVec3d) e.movement).meteor$set(offset.x, offset.y, offset.z);
 
         packetsToSend = Math.min(packetsToSend, 1);
     }
@@ -293,26 +293,26 @@ public class PacketFly extends BlackOutModule {
     private void onReceive(PacketEvent.Receive e) {
         if (e.packet instanceof PlayerPositionLookS2CPacket packet) {
             if (debugID.get()) {
-                debug("id: " + packet.getTeleportId());
+                debug("id: " + packet.teleportId());
             }
-            Vec3d vec = new Vec3d(packet.getX(), packet.getY(), packet.getZ());
+            Vec3d vec = new Vec3d(packet.change().position().getX(), packet.change().position().getX(), packet.change().position().getX());
 
-            if (validPos.containsKey(packet.getTeleportId()) && validPos.get(packet.getTeleportId()).equals(vec)) {
+            if (validPos.containsKey(packet.teleportId()) && validPos.get(packet.teleportId()).equals(vec)) {
                 if (debugID.get()) {
                     debug("true");
                 }
                 e.cancel();
                 if (!predictID.get()) {
-                    sendPacket(new TeleportConfirmC2SPacket(packet.getTeleportId()));
+                    sendPacket(new TeleportConfirmC2SPacket(packet.teleportId()));
                 }
-                validPos.remove(packet.getTeleportId());
+                validPos.remove(packet.teleportId());
                 return;
             }
             if (debugID.get()) {
                 debug("false");
             }
 
-            id = packet.getTeleportId();
+            id = packet.teleportId();
         }
     }
 
@@ -355,8 +355,8 @@ public class PacketFly extends BlackOutModule {
     }
 
     private void send(Vec3d pos, Vec3d bounds, boolean onGround) {
-        PlayerMoveC2SPacket.PositionAndOnGround normal = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x, pos.y, pos.z, onGround);
-        PlayerMoveC2SPacket.PositionAndOnGround bound = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x + bounds.x, pos.y + bounds.y, pos.z + bounds.z, onGround);
+        PlayerMoveC2SPacket.PositionAndOnGround normal = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x, pos.y, pos.y, onGround, false);
+        PlayerMoveC2SPacket.PositionAndOnGround bound = new PlayerMoveC2SPacket.PositionAndOnGround(pos.x + bounds.y, pos.y + bounds.y, pos.z + bounds.z, onGround, false);
 
         validPackets.add(normal);
         sendPacket(normal);

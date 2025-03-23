@@ -274,7 +274,7 @@ public class PistonPush extends BlackOutModule {
         if (!mc.player.isOnGround()) return;
         if (EntityUtils.intersectsWithEntity(Box.from(new BlockBox(pistonPos)), entity -> !entity.isSpectator() && !(entity instanceof ItemEntity))) return;
         if (SettingUtils.shouldRotate(RotationType.BlockPlace) && !Managers.ROTATION.start(pistonData.pos(), priority, RotationType.BlockPlace, Objects.hash(name + "piston"))) return;
-        sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(pistonDir.asRotation(), Managers.ROTATION.lastDir[1], Managers.ON_GROUND.isOnGround()));
+        sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(pistonDir.getHorizontalQuarterTurns(), Managers.ROTATION.lastDir[1], Managers.ON_GROUND.isOnGround(), false));
 
         boolean switched = false;
 

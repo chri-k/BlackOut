@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BackgroundRenderer.class)
+/*@Mixin(BackgroundRenderer.class)
 public class MixinBackground {
     @Inject(method = "applyFog", at = @At("TAIL"))
     private static void applyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo info) {
@@ -18,4 +18,4 @@ public class MixinBackground {
             fog.modifyFog();
         }
     }
-}
+}*/

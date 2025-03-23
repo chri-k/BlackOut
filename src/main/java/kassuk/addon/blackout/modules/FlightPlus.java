@@ -125,7 +125,7 @@ public class FlightPlus extends BlackOutModule {
                     z = Math.sin(Math.toRadians(yaw)) * speed.get();
 
                 }
-                ((IVec3d) event.movement).set(x, y, z);
+                ((IVec3d) event.movement).meteor$set(x, y, z);
             }
             if (flyMode.get().equals(FlightMode.Jump)){
                 if (mc.options.jumpKey.wasPressed()){
@@ -143,11 +143,11 @@ public class FlightPlus extends BlackOutModule {
                     z = Math.sin(Math.toRadians(yaw)) * speed.get();
 
                 }
-                ((IVec3d) event.movement).setXZ(x, z);
+                ((IVec3d) event.movement).meteor$setXZ(x, z);
             }
             if (flyMode.get().equals(FlightMode.Glide)){
                 if (!mc.player.isOnGround())
-                    ((IVec3d) event.movement).setY(-glideAmount.get());
+                    ((IVec3d) event.movement).meteor$setY(-glideAmount.get());
 
             }
         }

@@ -613,10 +613,10 @@ public class BedAuraPlus extends BlackOutModule {
         boolean switched = hand != null;
 
         if (rotMode.get() == RotationMode.Packet) {
-            sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(bedDir.getOpposite().asRotation(), Managers.ROTATION.lastDir[1], Managers.ON_GROUND.isOnGround()));
+            sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(bedDir.getOpposite().getHorizontalQuarterTurns(), Managers.ROTATION.lastDir[1], Managers.ON_GROUND.isOnGround(), false));
         } else {
-            Managers.ROTATION.startYaw(bedDir.getOpposite().asRotation(), priority, RotationType.Other, Objects.hash(name + "placing"));
-            if (Math.abs(RotationUtils.yawAngle(Managers.ROTATION.lastDir[0], bedDir.getOpposite().asRotation())) > 45) {
+            Managers.ROTATION.startYaw(bedDir.getOpposite().getHorizontalQuarterTurns(), priority, RotationType.Other, Objects.hash(name + "placing"));
+            if (Math.abs(RotationUtils.yawAngle(Managers.ROTATION.lastDir[0], bedDir.getOpposite().getHorizontalQuarterTurns())) > 45) {
                 return false;
             }
         }

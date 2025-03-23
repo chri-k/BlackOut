@@ -13,14 +13,11 @@
     "IRaycastContext",
     "ISetCameraEntityS2CPacket",
     "ISpectatorTeleportC2SPacket",
-    "MixinBackground",
     "MixinClientCommonNetworkHandler",
-    "MixinClientPlayerEntity",
     "MixinClientPlayerInteractionManager",
     "MixinEntity",
     "MixinExplosion",
     "MixinHeldItemRenderer",
-    "MixinLivingEntityRenderer",
     "MixinPlayerEntity"
   ],
   "injectors": {

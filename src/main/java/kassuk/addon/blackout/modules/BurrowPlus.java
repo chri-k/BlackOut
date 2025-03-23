@@ -153,7 +153,7 @@ public class BurrowPlus extends BlackOutModule {
         }
 
         if (instaRot.get() && SettingUtils.shouldRotate(RotationType.BlockPlace)) {
-            sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(Managers.ROTATION.lastDir[0], 90, Managers.ON_GROUND.isOnGround()));
+            sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(Managers.ROTATION.lastDir[0], 90, Managers.ON_GROUND.isOnGround(), false));
         }
 
         double y = 0;
@@ -163,7 +163,7 @@ public class BurrowPlus extends BlackOutModule {
             y += velocity;
             velocity = (velocity - 0.08) * 0.98;
 
-            sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY() + y, mc.player.getZ(), false));
+            sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY() + y, mc.player.getZ(), false, false));
         }
 
         placeBlock(Hand.MAIN_HAND, mc.player.getBlockPos().down().toCenterPos(), Direction.UP, mc.player.getBlockPos().down());
@@ -172,7 +172,7 @@ public class BurrowPlus extends BlackOutModule {
         if (placeSwing.get()) clientSwing(placeHand.get(), Hand.MAIN_HAND);
 
         for (int i = 0; i < rubberbandPackets.get(); i++) {
-            sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY() + y + rubberbandOffset.get(), mc.player.getZ(), false));
+            sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY() + y + rubberbandOffset.get(), mc.player.getZ(), false, false));
         }
 
         success = true;
