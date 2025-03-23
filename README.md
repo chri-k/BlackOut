@@ -1,5 +1,7 @@
 ![banner](https://raw.githubusercontent.com/KassuK1/BlackOut/main/src/main/resources/assets/blackout/logo.png)
 
+## Join the Discord and help improve BlackOut! [https://discord.com/invite/VPHpTe6Z2U](https://discord.com/invite/VPHpTe6Z2U)
+<hr>
 
 # Blackout
 An addon for Meteor client that adds a variety of new/improved features to the Meteor client
