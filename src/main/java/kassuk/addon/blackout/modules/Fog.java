@@ -25,40 +25,50 @@ public class Fog extends BlackOutModule {
         .build()
     );
     public final Setting<Double> distance = sgGeneral.add(new DoubleSetting.Builder()
-        .name("Distance")
+        .name("start")
         .description("How far away should the fog start rendering.")
         .defaultValue(25)
-        .min(0)
-        .sliderRange(0, 100)
+        .noSlider()
         .build()
     );
     public final Setting<Integer> fading = sgGeneral.add(new IntSetting.Builder()
-        .name("Fading")
-        .description("How smoothly should the fog fade.")
-        .defaultValue(25)
-        .min(0)
-        .sliderRange(0, 1000)
+        .name("fading")
+        .description("How quickly the fog fades")
+        .defaultValue(200)
+        .sliderRange(1, 1000)
         .build()
     );
     public final Setting<Double> thickness = sgGeneral.add(new DoubleSetting.Builder()
-        .name("Thickness")
+        .name("thickness")
         .description(".")
-        .defaultValue(10)
+        .defaultValue(40)
         .range(1, 100)
         .sliderRange(1, 100)
+        .onChanged(this::updateThicknessFactor)
         .build()
     );
     public final Setting<SettingColor> color = sgGeneral.add(new ColorSetting.Builder()
-        .name("Color")
+        .name("color")
         .description("Color of the fog.")
-        .defaultValue(new SettingColor(255, 0, 0, 255))
+        .defaultValue(new SettingColor(9, 4, 103, 255))
         .build()
     );
 
-    /*public void modifyFog() {
-        RenderSystem.setShaderFogColor(color.get().r, color.get().g, color.get().b, color.get().a / (float) ((100 - thickness.get()) * 2.55f));
-        RenderSystem.setShaderFogStart((float) (distance.get() * 1f));
-        RenderSystem.setShaderFogEnd((float) (distance.get() + fading.get()));
-        RenderSystem.setShaderFogShape(shape.get());
-    }*/
+    // makes the effect of the slider feel more linear
+    private double thicknessFactor;
+    private void updateThicknessFactor(double thickness) {
+        thicknessFactor = thickness * thickness / 10000.0f;
+    }
+
+    public net.minecraft.client.render.Fog getFog() {
+        return new net.minecraft.client.render.Fog(
+            distance.get().floatValue(),
+            Math.max(distance.get().floatValue(), 10) * fading.get(),
+            shape.get(),
+            color.get().r,
+            color.get().g,
+            color.get().b,
+            (int)(color.get().a * thicknessFactor)
+        );
+    }
 }
