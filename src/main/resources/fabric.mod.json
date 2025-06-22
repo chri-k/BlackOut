@@ -15,6 +15,7 @@
     "issues": "https://github.com/RacoonDog/BlackOut/issues"
   },
   "icon": "assets/blackout/logo.png",
+  "license": "GPL-3.0-or-later",
   "environment": "client",
   "entrypoints": {
     "meteor": [
