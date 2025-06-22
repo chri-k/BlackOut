@@ -58,7 +58,7 @@ public class BlackOut extends MeteorAddon {
         modules.add(new AutoPearl());
         initializeAutoPVP(modules);
         modules.add(new AutoTrapPlus());
-        //modules.add(new BedAuraPlus());
+        modules.add(new BedAuraPlus());
         modules.add(new Blocker());
         modules.add(new BurrowPlus());
         modules.add(new CustomFOV());
