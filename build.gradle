@@ -31,7 +31,7 @@ dependencies {
 
     // Meteor
     modImplementation "meteordevelopment:meteor-client:${project.meteor_version}-SNAPSHOT"
-    modImplementation "meteordevelopment:baritone:${project.minecraft_version}-SNAPSHOT"
+    modCompileOnly "meteordevelopment:baritone:${project.minecraft_version}-SNAPSHOT"
 }
 
 processResources {
