@@ -15,6 +15,7 @@ import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
+import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.*;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
@@ -343,23 +344,12 @@ public class RotationManager {
         return from + (to - from) * delta;
     }
 
-    public void setHeadYaw(Args args) {
-        if (!shouldRotate) {return;}
-
-        args.set(1, prevDir[0]);
-        args.set(2, currentDir[0]);
-    }
-    public void setBodyYaw(Args args) {
-        if (!shouldRotate) {return;}
-
-        args.set(1, prevDir[0]);
-        args.set(2, currentDir[0]);
-    }
-    public void setPitch(Args args) {
-        if (!shouldRotate) {return;}
-
-        args.set(1, prevDir[1]);
-        args.set(2, currentDir[1]);
+    public void modifyRenderState(PlayerEntityRenderState state, float tickDelta) {
+        if (!shouldRotate) return;
+        float yaw = MathHelper.subtractAngles(state.bodyYaw, currentDir[0]);
+        float prevYaw = MathHelper.subtractAngles(state.bodyYaw, prevDir[0]);
+        state.yawDegrees = MathHelper.lerpAngleDegrees(tickDelta, prevYaw, yaw);
+        state.pitch = MathHelper.lerpAngleDegrees(tickDelta, prevDir[1], currentDir[1]);
     }
 
     private static class Target {}

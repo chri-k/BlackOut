@@ -17,10 +17,12 @@
     "MixinBackground",
     "MixinClientCommonNetworkHandler",
     "MixinClientConnection",
+    "MixinClientPlayerEntity",
     "MixinClientPlayerInteractionManager",
     "MixinEntity",
     "MixinExplosion",
     "MixinHeldItemRenderer",
+    "MixinEntityRenderDispatcher",
     "MixinPlayerEntity"
   ],
   "injectors": {
